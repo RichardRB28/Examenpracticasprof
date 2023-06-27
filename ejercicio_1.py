@@ -3,7 +3,6 @@ minus=[]
 mayus=[]
 num=[]
 concat=[]
-x=2
 cadenas_s=input("ingrese una cadena de caracteres la cual contenga un tamanio menor que 1000 caracteres: ")
 
 # indica el tamaño del vector si corresponde al limite establecido
