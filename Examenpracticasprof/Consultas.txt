@@ -1,0 +1,23 @@
+Consultas 
+
+1)Los bebedores que no les gusta la colombiana
+
+R//Para abordar esta consulta debemos realizar una "subconsulta" de la cual se extraiga el valor
+del codigo de la bebida "colombiana" que es desconocido para poder relacionarlo con la tabla-GUSTA
+para así conocer el cliente que consume esta bebeida, para luego filtrar aquellos que no les gusta 
+haciendo una "negación" se toman los consumidores o bebedores tales que la bebeida sea diferente a el codigo 
+de la colombiana.
+
+
+SELECT codigo-bebida FROM tabla-BEBIDA WHERE nombre-bebida="colombiana";
+
+SELECT * FROM tabla-BEBEDOR LEFT JOIN tabla-GUSTA LEFT JOIN tabla-BEBIDA
+ON (tabla-BEBEDOR.cedula=tabla-GUSTA.cedula) 
+WHERE tabla-BEBIDA.nombere-bebida="colombiana"
+
+
+SELECT tabla-BEBEDOR.cedula, tabla-GUSTA.*, tabla-BEBIDA.* FROM tabla-BEBEDOR LEFT JOIN tabla-GUSTA
+
+
+Entrega todos los campos entre los cuales la cedula del bebedor es igual a la cedula del bebedor 
+que consume una bebida en especial 
