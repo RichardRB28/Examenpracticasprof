@@ -2,7 +2,6 @@
 minus=[]
 mayus=[]
 num=[]
-x=2
 concat=[]
 cadenas_s=input("ingrese una cadena de caracteres la cual contenga un tamanio menor que 1000 caracteres: ")
 
