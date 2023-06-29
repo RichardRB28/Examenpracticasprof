@@ -1,0 +1,17 @@
+Explicación de resolución de ejercicios:
+
+1) Para el ejercicio 1 se realizó en primera instancia el uso del comando len() para saber de cuantos caracteres
+era el tamaño de la cadena ingresada por el usuario para luego a partir de ese valor limitar el numero entre
+los rangos establecidos de mayor que 0 y menor a 1000, debido al la indentacion de python para hacerle saber al 
+interprete que se las siguientes lineas de codigo se encontraban dentro de dicha condición se debia mantener espacios,
+luego se convierte la cadena a una lista mediante la cual se recorre y através de 3 vectores que representan los
+3 tipos de datos a clasificar dos vectores de carateres y debido a que los valores son ingresados como caracteres 
+se debe usar el comando int() para convertir a entero los numeros que se encuentren en el arreglo, por ultimo se
+organizan de la manera pre-establecida y se imprimen asi mismo, se usa el ejemplo recomendando y se aprecia 
+que se logra el objetivo.
+
+2) Se utiliza el software SQLT Workbench para crear la base de datos donde primero se crea, se usa y luego se 
+procede a crear las respectivas tablas relacionandolas mediante primaey key y foregein key, mediante el comando 
+insert se dan valores a los campos de las tablas para luego realizar las consultas. 
+
+NOTA: De la prueba realicé los puntos a conciencia, documentandome y aplicando los conocimientos que he adquirido.
