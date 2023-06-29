@@ -15,3 +15,6 @@ procede a crear las respectivas tablas relacionandolas mediante primaey key y fo
 insert se dan valores a los campos de las tablas para luego realizar las consultas. 
 
 NOTA: De la prueba realicé los puntos a conciencia, documentandome y aplicando los conocimientos que he adquirido.
+
+NOTA2: Se realizaron mediante una terminal ubuntu enlazada al repositorio github, aplicando los comandos 
+correspondientes para exportar los codigos y archivos.
