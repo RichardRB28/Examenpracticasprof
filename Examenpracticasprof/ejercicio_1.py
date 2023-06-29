@@ -10,7 +10,7 @@ cadenas_s=input("ingrese una cadena de caracteres la cual contenga un tamanio me
 tama=len(cadenas_s)
 print(tama)
 
-if tama>0 and tama<20:	#No debe exceder el tamaño predefinido
+if tama>0 and tama<1000: #No debe exceder el tamaño predefinido
 
 	vector_cadena =list(cadenas_s)
 	print(vector_cadena)

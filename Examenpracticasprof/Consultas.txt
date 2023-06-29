@@ -1,49 +1,12 @@
-Consultas 
-
-1)Los bebedores que no les gusta la colombiana
-
-R//Para abordar esta consulta debemos realizar una "subconsulta" de la cual se extraiga el valor
-del codigo de la bebida "colombiana" que es desconocido para poder relacionarlo con la tabla-GUSTA
-para así conocer el cliente que consume esta bebeida, para luego filtrar aquellos que no les gusta 
-haciendo una "negación" se toman los consumidores o bebedores tales que la bebeida sea diferente a el codigo 
-de la colombiana.
-
-Entrega todos los campos entre los cuales la cedula del bebedor es igual a la cedula del bebedor 
-que consume una bebida en especial 
-
-
-SELECT *,FROM tabla-BEBEDOR LEFT JOIN tabla-GUSTA 
-ON (tabla-BEBEDOR.cedula=tabla-GUSTA.cedula) 
-WHERE tabla-GUSTA.codigo-bebida!=(SELECT codigo-bebida FROM tabla-BEBIDA WHERE nombre-bebida="colombiana");
-
-
---------------------------------------------------------------------------------------------------------------------
-
-2)Las fuentes de soda que no son frecuentadas por Andres Camilo Restrepo.
-
-R//Se realizar un conteo de las veces que se repite el codigo de x tienda asociado a la cedula que a su vez está asociado a el nombre de Andrés, luego 
-se ordena de manera ascendente mostrando las tiendas que no son "frecuentadas por Andres Camilo Restrepo"
-
-
-Consulta entrega aquellas filas en las cuales la cedula pertenezca a Andres y el codigo de la tienda a las que ha ido
-
-SELECT tabla-FRECUENCIA.codigo-tienda 
-FROM tabla-FRECUENCIA LEFT JOIN tabla-BEBEDOR
-ON(tabla-FRECUENCIA.cedula=tabla_BEBEDOR.cedula)
-WHERE tabla-FRECUENCIA.cedula != (SELECT cedula FROM tabla-BEBEDOR  WHERE nombre="Andres Camilo Restrepo")
-
-3)Los bebedores que les gusta al menos una bebida y que frecuentan al menos una tienda
-
-
-
-4) Los bebedores que frecuentan solo las tiendas que frecuenta Luis Perez.
-
-
-
-5) Los bebedores que unicamente frecuentan las tiendas que unicamente sirven alguna bebida que
-le gusta.
+Primer encontrará la cración de la base de datos la cual está escrita en lenguaje de consultas, en el software MYSQL workbench
+de manera siguiente encontrará las consultas que se realizaron
  
--------------------------------------------------
+------------------------------CREACIÓN DE BASE DE DATOS-------------------
+
+Para la creación de la base de datos se procede a crear las tablas correspondientes al documento adjunto
+luego se realizan las respectivas consultas usando las clausulas predefinidas. 
+
+
 create database Examen;
 use Examen;
 
@@ -68,8 +31,8 @@ CREATE TABLE bebedor (
 CREATE TABLE gusta (
     cedula BIGINT(12),
     codigo_bebida INT(10),
-    CONSTRAINT FOREIGN KEY (cedula) REFERENCES examen.bebedor (cedula),
-        CONSTRAINT FOREIGN KEY (codigo_bebida)REFERENCES examen.bebida (codigo_bebida)
+CONSTRAINT FOREIGN KEY (cedula) REFERENCES examen.bebedor (cedula),
+	CONSTRAINT FOREIGN KEY (codigo_bebida)REFERENCES examen.bebida (codigo_bebida)
 )  ENGINE=INNODB;
 
 CREATE TABLE frecuencia (
@@ -106,10 +69,13 @@ insert into bebedor(cedula,nombre)  values (11111,"Luis");
 insert into bebedor(cedula,nombre)  values (12111,"pedro");
 insert into bebedor(cedula,nombre)  values (13111,"Andres Camilo Restrepo");
 insert into bebedor(cedula,nombre)  values (14111,"Adalberto");
+insert into bebedor(cedula,nombre)  values (15111,"jeick");
 
 insert into gusta(cedula,codigo_bebida)  values (10111,12122);
 insert into gusta(cedula,codigo_bebida)  values (10111,12123);
 insert into gusta(cedula,codigo_bebida)  values (10111,12124);
+insert into gusta(cedula,codigo_bebida)  values (10111,12125);
+insert into gusta(cedula,codigo_bebida)  values (10111,12126);
 
 insert into gusta(cedula,codigo_bebida)  values (11111,12123);
 insert into gusta(cedula,codigo_bebida)  values (11111,12125);
@@ -120,29 +86,33 @@ insert into gusta(cedula,codigo_bebida)  values (12111,12124);
 insert into gusta(cedula,codigo_bebida)  values (12111,12126);
 
 insert into gusta(cedula,codigo_bebida)  values (13111,12125);
-insert into gusta(cedula,codigo_bebida)  values (13111,12126);
 insert into gusta(cedula,codigo_bebida)  values (13111,12124);
+
+insert into gusta(cedula,codigo_bebida) values (15111,12124);
 
 insert into gusta(cedula,codigo_bebida)  values (14111,12126);
 
 insert into frecuencia(cedula,codigo_tienda) values (10111,1);
 insert into frecuencia(cedula,codigo_tienda) values (10111,2);
 insert into frecuencia(cedula,codigo_tienda) values (10111,3);
+
 insert into frecuencia(cedula,codigo_tienda) values (12111,2);
-insert into frecuencia(cedula,codigo_tienda) values (13111,3);
+
+insert into frecuencia(cedula,codigo_tienda) values (13111,3); /* andres c restrepo*/
+
 insert into frecuencia(cedula,codigo_tienda) values (14111,4);
 
+insert into frecuencia(cedula,codigo_tienda) values (11111,4);
+insert into frecuencia(cedula,codigo_tienda) values (11111,3);
+insert into frecuencia(cedula,codigo_tienda) values (15111,3);
 
 insert into vende(codigo_tienda,codigo_bebida,precio) values (3,12122,100.0);
 insert into vende(codigo_tienda,codigo_bebida,precio) values (3,12123,102.0);
 insert into vende(codigo_tienda,codigo_bebida,precio) values (3,12124,103.0);
 
 
-
 insert into vende(codigo_tienda,codigo_bebida,precio) values (1,12123,105.0);
 insert into vende(codigo_tienda,codigo_bebida,precio) values (1,12124,106.0);
-
-
 
 insert into vende(codigo_tienda,codigo_bebida,precio) values (2,12123,105.0);
 insert into vende(codigo_tienda,codigo_bebida,precio) values (2,12122,99.0);
@@ -151,14 +121,32 @@ insert into vende(codigo_tienda,codigo_bebida,precio) values (2,12124,177.0);
 insert into vende(codigo_tienda,codigo_bebida,precio) values (4,12124,106.0);
 insert into vende(codigo_tienda,codigo_bebida,precio) values (4,12126,100.0);
 
- select * from vende left join tienda on (vende.codigo_tienda=tienda.codigo_tienda) where 
- codigo_bebida=(select bebida.codigo_bebida from bebida where nombre_bebida="postobon"); 
-
-(SELECT nombre_bebida FROM bebida WHERE nombre_bebida=12125);
 
 
 /*---------------------- BEBEDORES QUE NO LES GUSTA LA COLOMBIANA-------------------*/
 SELECT * FROM bebedor LEFT JOIN gusta ON (bebedor.cedula=gusta.cedula) 
 WHERE gusta.codigo_bebida!=(SELECT codigo_bebida FROM bebida WHERE nombre_bebida="colombiana");
 
-/*-----------FUENTES QUE NO SON FRECUENTADAS POR ANDRES CAMILO RESTREPO------- */ 
+
+
+
+/*-----------TIENDAS QUE NO SON FRECUENTADAS POR ANDRES CAMILO RESTREPO------- */ 
+
+SELECT * FROM tienda WHERE tienda.codigo_tienda != (
+SELECT codigo_tienda FROM frecuencia WHERE cedula=(
+SELECT cedula FROM bebedor WHERE nombre ="Andres Camilo Restrepo"));
+
+
+
+
+/*---BEBEDORES QUE LES GUSTA AL MENOS UNA BEBIDA Y  QUE FRECUENTAN AL MENOS UNA TIENDA---*/
+
+ SELECT * FROM gusta INNER JOIN  frecuencia ON ( gusta.cedula=frecuencia.cedula) INNER JOIN
+ bebedor ON(gusta.cedula=bebedor.cedula); 
+
+  SELECT * FROM frecuencia LEFT JOIN  gusta ON (gusta.cedula=frecuencia.cedula) WHERE 
+  (frecuencia.cedula IN ((SELECT cedula FROM frecuencia GROUP BY cedula HAVING COUNT(*)>=1)) AND (
+ gusta.cedula IN ((SELECT cedula FROM gusta GROUP BY cedula HAVING COUNT(*)>=1))));
+
+ SELECT cedula, COUNT(cedula) AS Bebidas FROM gusta GROUP BY cedula HAVING COUNT(cedula)>1;
+ SELECT cedula, COUNT(cedula) AS Tiendas FROM frecuencia GROUP BY cedula HAVING COUNT(cedula)>=1;
